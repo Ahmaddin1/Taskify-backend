@@ -10,6 +10,7 @@ import authRoutes from "./routes/auth.js";
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1); 
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,7 +20,7 @@ app.use(helmet());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 70,
+  max: 50,
   message: { message: "Too many requests. Please try again later." },
 });
 
@@ -27,7 +28,7 @@ app.use("/api", limiter);
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 12,
+  max: 10,
   message: { message: "Too many attempts. Please try again later." },
 });
 
